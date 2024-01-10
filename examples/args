@@ -1,0 +1,114 @@
+###############
+### General ###
+###############
+
+Arguments:
+
+Required:
+
+-i, --input
+specify path of input file
+OR
+
+-d, --download
+specify shortcut for database that should be downloaded [chembl or pdb]
+Optional:
+
+-o , --output
+specify name (and path) of output file without file extension [default: prep_database]
+-int , --integrate
+specify shortcut for database; saves database to $HOME/VSFlow_Databases
+-intg, --int_global
+specify shortcut for database; stores prepared database within the repository folder
+-s, --standardize
+standardizes molecules, removes salts and associated charges
+-can, --canonicalize
+if specified, the canonical tautomer for every molecule is generated and stored in the output database file
+-c, --conformers
+generates multiple 3D conformers for database molecules
+-np , --nproc
+specify number of processors to run application in multiprocessing mode
+-f, --fingerprint
+f specified, the selected fingerprint is generated for database molecules [rdkit, ecfp, fcfp, ap, tt, maccs]
+-r, --radius
+specify radius for circular fingerprints ecfp and fcfp [default: 2]
+-nb, --nbits
+specify bit size of fingerprints [default: 2048]
+--no_chiral
+if specified, chirality of molecules will not be considered for fingerprint generation
+--max_tauts
+maximum number of tautomers to be enumerated during standardization process [default: 100]
+--nconfs
+maximum number of conformers generated, [default: 20]
+--rms_thresh
+if specified, only those conformations out of --nconfs that are at least this different are retained (RMSD calculated on heavy atoms)
+--seed
+specify seed for random number generator, for reproducibility
+--boost
+distributes conformer generation on all available threads of your cpu
+--header
+Specify number of row in csv/xlsx file containing the column names, if not automatically recognized [e.g. 1 for first row]
+--mol_column
+Specify name (or position) of mol column [SMILES/InChI] in csv/xlsx file, if not automatically recognized [e.g. 'SMILES' or '1' (for first column)]
+--delimiter
+Specify delimiter of csv file, if not automatically recognized
+-h, --help
+show this help message and exit
+
+
+#############################
+### Shape-based Screening ###
+#############################
+
+Arguments:
+
+Required:
+
+-i , --input
+specify path/name of input file
+OR
+-smi , --smiles
+specify SMILES string on command line in double quotes
+-d , --database
+specify path of the database file [.sdf/.sdf.gz or .vsdb] or specify the shortcut for an integrated database
+
+Optional:
+
+-o , --output
+specify name of output file [default: shape.sdf]
+-np , --nproc
+Specify the number of processors to run the application in multiprocessing mode
+-t , --top_hits
+Maximum number of molecules with highest score to keep [default: 10]
+-a , --align_method
+select method for molecular alignment [mmff, crippen], [default: mmff]
+-s , --score
+select score to be used to rank the results
+-c , --cutoff
+if specified, only molecules with score above cutoff value are written to the output files(s)
+--seed
+specify seed for random number generator, for reproducibility
+--keep_confs
+if queries are 2D: number of conformations per query molecule to keep after energy minimization [default: 1]
+--nconfs
+if queries are 2D: maximum number of query conformations to be enumerated [default: 100]
+--boost
+distributes query conformer generation and 3D alignment on all available cores/threads of your system
+--pharm_feats
+select pharmacophore feature definitions to be used for calculation of 3D pharmacophore fps [gobbi, basic, minimal], [default: gobbi]
+--shape_simi
+specify measure to be used to compare shape similarity [tan, protr, tver], [default: tver]
+--fp_simi
+specify measure to be used to calculate similarity from 3D pharmacophore fps[tan, dice, cos, sok, russ, kulc, mcco, tver], [default: tan]
+--tver_alpha
+specify alpha parameter (weighs database molecule) for Tversky similarity [default: 0.5]
+--tver_beta
+specify beta parameter (weighs query molecule) for Tversky similarity [default: 0.5]
+--pdf
+generate a pdf file for the results with 2D structures and annotations
+--pymol
+generate PyMOL file with 3D conformations for results
+--mol_column
+specify name (or position) of mol column [SMILES/InChI] in csv/xlsx file, if not automatically recognized
+--delimiter
+specify delimiter of csv file if not automatically recognized
